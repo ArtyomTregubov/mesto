@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 120px 30px 336px minmax(5px, 249px) minmax(50px, 150px);
     padding-top: 40px;
-    align-items: center;;
+    align-items: center;
   }
   
   @media screen and (max-width: 635px) {
