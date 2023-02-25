@@ -3,9 +3,9 @@
 
 Используемые технологии:
 
-HTML
-CSS
-Адаптивная верстка
-БЭМ
-JavaScript
+HTML  
+CSS  
+Адаптивная верстка  
+БЭМ  
+JavaScript  
 Страница проекта:  https://artyomtregubov.github.io/mesto/
