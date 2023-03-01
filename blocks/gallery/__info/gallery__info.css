@@ -5,4 +5,5 @@
     grid-template-columns: minmax(50px, auto) 30px;
     align-self: center;
     align-items: center;
+    height: 80px;
   }

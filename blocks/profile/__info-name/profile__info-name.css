@@ -6,12 +6,12 @@
     margin: 0;
     grid-column: 1;
     grid-row: 1;
-    word-wrap: break-word;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
     align-self: center;
     max-width: 294px;
+    height: 48px;
   }
   
   @media screen and (max-width: 635px) {
@@ -20,5 +20,6 @@
       line-height: 1;
       justify-self: end;
       max-width: 215px;
+      height: 30px;
     }
   }
