@@ -7,7 +7,7 @@
     -moz-text-size-adjust: 100%;
     -ms-font-feature-settings: "kern" 1;
     font-feature-settings: "kern";
-    width: min(100%, 880px);
+    max-width: min(100%, 880px);
     font-family: 'Inter', 'Arial', sans-serif;
     color: white;
     padding: 0 30px;

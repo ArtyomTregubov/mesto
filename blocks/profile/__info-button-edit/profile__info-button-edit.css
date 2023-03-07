@@ -20,6 +20,12 @@
       margin-top: 0;
     }
   }
+
+  @media screen and (max-width: 320px) {
+    .profile__info-button-edit {
+      background-size: 7.5px;
+    }
+  }
   
   .profile__info-button-edit:hover {
     cursor: pointer;

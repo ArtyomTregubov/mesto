@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns: 294px 1fr;
     grid-gap: 1px 10px;
-    height: 79px;
+    min-height: 79px;
   }
   
   @media screen and (max-width: 635px) {
@@ -12,9 +12,8 @@
       grid-row: 3;
       grid-column: 1;
       grid-template-columns: 235px 18px;
-      grid-gap: 1px 10px;
-      justify-items: center;
-      height: 54px;
+      justify-content: center;
+      min-height: 54px;
       margin-top: 26px;
     }
   }

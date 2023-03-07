@@ -1,4 +1,5 @@
 .popup__overlay {
+  position: relative;
     width: 430px;
     justify-self: center;
     background-color: white;
