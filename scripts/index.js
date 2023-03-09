@@ -3,6 +3,7 @@ const editButton = document.querySelector('.profile__info-button-edit')
 const infoName = document.querySelector('.profile__info-name')
 const description = document.querySelector('.profile__info-description')
 const popup = document.querySelector('.popup')
+const form = document.querySelector('.popup__main')
 const formName = document.querySelector('.popup__input_form_name')
 const formDescription = document.querySelector('.popup__input_form_description')
   

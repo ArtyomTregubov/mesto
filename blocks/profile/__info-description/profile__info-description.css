@@ -9,7 +9,6 @@
     white-space: nowrap;
     overflow: hidden;
     max-width: 290px;
-    min-height: 25px;
   }
   
   @media screen and (max-width: 635px) {
@@ -18,6 +17,6 @@
       max-width: 227px;
       align-self: end;
       justify-self: center;
-      min-height: 17px;
+      padding-left: 24px;
     }
   }

@@ -3,6 +3,4 @@
     visibility: visible;
     opacity: 1;
     transition: visibility .3s, opacity .3s linear;
-    align-content: center;
-    justify-content: center;
   }

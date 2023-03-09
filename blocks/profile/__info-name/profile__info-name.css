@@ -11,7 +11,7 @@
     overflow: hidden;
     align-self: center;
     max-width: 294px;
-    min-height: 48px;
+    padding-bottom: 16px;
   }
   
   @media screen and (max-width: 635px) {
@@ -20,6 +20,6 @@
       line-height: 1;
       justify-self: center;
       max-width: 215px;
-      min-height: 30px;
+      padding: 0  0 14px 30px;
     }
   }
