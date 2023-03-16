@@ -28,53 +28,17 @@
                 </section>
 
                 <section class="gallery">
-                    <div class="gallery__element">
-                        <img class="gallery__picture" src="./images/karachaevsk.jpg" alt="Карачаево-Черкессия" />
-                        <div class="gallery__info">
-                            <h2 class="gallery__title">Карачаевск</h2>
+                    <template id="gallery__element">
+                        <article class="gallery__element">
+                          <button class="gallery__trash" type="button"></button>
+                          <img class="gallery__picture" src="#" als="Пейзаж">
+                          <div class="gallery__info">
+                            <h2 class="gallery__title"></h2>
                             <button class="gallery__like" type="button"></button>
-                        </div>
-                    </div>
-
-                    <div class="gallery__element">
-                        <img class="gallery__picture" src="./images/elbrus.jpg" alt="Эльбрус" />
-                        <div class="gallery__info">
-                            <h2 class="gallery__title">Гора Эльбрус</h2>
-                            <button class="gallery__like" type="button"></button>
-                        </div>
-                    </div>
-
-                    <div class="gallery__element">
-                        <img class="gallery__picture" src="./images/dombay.jpg" alt="Домбай" />
-                        <div class="gallery__info">
-                            <h2 class="gallery__title">Домбай</h2>
-                            <button class="gallery__like" type="button"></button>
-                        </div>
-                    </div>
-
-                    <div class="gallery__element">
-                        <img class="gallery__picture" src="./images/elbrus2.jpg" alt="Эльбрус" />
-                        <div class="gallery__info">
-                            <h2 class="gallery__title">Гора Эльбрус</h2>
-                            <button class="gallery__like" type="button"></button>
-                        </div>
-                    </div>
-
-                    <div class="gallery__element">
-                        <img class="gallery__picture" src="./images/dombay2.jpg" alt="Домбай" />
-                        <div class="gallery__info">
-                            <h2 class="gallery__title">Домбай</h2>
-                            <button class="gallery__like" type="button"></button>
-                        </div>
-                    </div>
-
-                    <div class="gallery__element">
-                        <img class="gallery__picture" src="./images/karachaevo.jpg" alt="Карачаево-Черкессия" />
-                        <div class="gallery__info">
-                            <h2 class="gallery__title">Карачаево-Черкессия</h2>
-                            <button class="gallery__like" type="button"></button>
-                        </div>
-                    </div>
+                          </div>
+                      </article>
+                      </template>
+                    
                 </section>
             </main>
 
@@ -98,6 +62,12 @@
                     </form>
                 </div>
             </div>
+
+            <div class="popup-image">
+                <button class="popup-image__close" type="button"></button>
+                <img class="popup-image__picture">
+                <h2 class="popup-image__title"></h2>
+              </div>
 
             <script src="./scripts/index.js"></script>
         </div>
