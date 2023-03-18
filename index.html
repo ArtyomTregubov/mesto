@@ -1,75 +1,99 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./pages/index.css" />
-        <title>Mesto</title>
-    </head>
-    <body class="body">
-        <div class="page">
-            <header class="header">
-                <a href="#" class="header__logo-link">
-                    <img src="./images/logo.svg" alt="Логотип сайта" class="header__logo" />
-                </a>
-            </header>
 
-            <main>
-                <section class="profile">
-                    <img src="./images/avatar.jpg" alt="аватар" class="profile__avatar" />
-                    <div class="profile__info">
-                        <h1 class="profile__info-name">Жак-Ив Кусто</h1>
-                        <p class="profile__info-description">Исследователь океана</p>
-                        <button class="profile__info-button-edit" type="button"></button>
-                    </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Mesto</title>
+</head>
 
-                    <button class="profile__add-button" type="button"></button>
-                </section>
+<body class="body">
+    <div class="page">
+        <header class="header">
+            <a href="#" class="header__logo-link">
+                <img src="./images/logo.svg" alt="Логотип сайта" class="header__logo" />
+            </a>
+        </header>
 
-                <section class="gallery">
-                    <template id="gallery__element">
-                        <article class="gallery__element">
-                          <button class="gallery__trash" type="button"></button>
-                          <img class="gallery__picture" src="#" als="Пейзаж">
-                          <div class="gallery__info">
+        <main>
+            <section class="profile">
+                <img src="./images/avatar.jpg" alt="аватар" class="profile__avatar" />
+                <div class="profile__info">
+                    <h1 class="profile__info-name">Жак-Ив Кусто</h1>
+                    <p class="profile__info-description">Исследователь океана</p>
+                    <button class="profile__info-button-edit" type="button"></button>
+                </div>
+
+                <button class="profile__add-button" type="button"></button>
+            </section>
+
+            <section class="gallery">
+                <template id="gallery__element">
+                    <article class="gallery__element">
+                        <button class="gallery__trash" type="button"></button>
+                        <img class="gallery__picture" src="#" als="Пейзаж">
+                        <div class="gallery__info">
                             <h2 class="gallery__title"></h2>
                             <button class="gallery__like" type="button"></button>
-                          </div>
-                      </article>
-                      </template>
-                    
-                </section>
-            </main>
+                        </div>
+                    </article>
+                </template>
 
-            <footer class="footer">
-                <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-            </footer>
+            </section>
+        </main>
 
-            <div class="popup">
-                
-                <div class="popup__overlay">
-                    <button class="popup__close" type="button"></button>
-                    <h2 class="popup__title">Редактировать профиль</h2>
-                    <form action="#" name="add-form" class="popup__main">
-                        <fieldset class="popup__person-info">
-                            <input type="text" name="form-name" class="popup__input popup__input_form_name" placeholder="Жак-Ив Кусто" />
-                            <input type="text" name="form-description" class="popup__input popup__input_form_description" placeholder="Исследователь океана" />
-                        </fieldset>
-                        <button class="popup__save-button" type="submit">
-                            Сохранить
-                        </button>
-                    </form>
-                </div>
+        <footer class="footer">
+            <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+        </footer>
+
+        <div class="popup popup-profile">
+
+            <div class="popup__overlay">
+                <button class="popup__close" type="button"></button>
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <form action="#" name="add-form" class="popup__main">
+                    <fieldset class="popup__info">
+                        <input type="text" name="form-name" class="popup__input popup__input_form_name"
+                            placeholder="Жак-Ив Кусто" />
+                        <input type="text" name="form-description" class="popup__input popup__input_form_description"
+                            placeholder="Исследователь океана" />
+                    </fieldset>
+                    <button class="popup__save-button" type="submit">
+                        Сохранить
+                    </button>
+                </form>
             </div>
-
-            <div class="popup-image">
-                <button class="popup-image__close" type="button"></button>
-                <img class="popup-image__picture">
-                <h2 class="popup-image__title"></h2>
-              </div>
-
-            <script src="./scripts/index.js"></script>
         </div>
-    </body>
+
+        <div class="popup popup-card">
+
+            <div class="popup__overlay">
+                <button class="popup__close" type="button"></button>
+                <h2 class="popup__title">Новое место</h2>
+                <form action="#" name="add-form" class="popup__main">
+                    <fieldset class="popup__info">
+                        <input type="text" name="form-name" class="popup__input popup__input_form_name"
+                            placeholder="Название" />
+                        <input type="text" name="form-description" class="popup__input popup__input_form_description"
+                            placeholder="Ссылка на картинку" />
+                    </fieldset>
+                    <button class="popup__save-button" type="submit">
+                        Сохранить
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="popup popup-image">
+            <button class="popup-image__close" type="button"></button>
+            <img class="popup-image__picture">
+            <h2 class="popup-image__title"></h2>
+        </div>
+
+        <script src="./scripts/index.js"></script>
+    </div>
+</body>
+
 </html>
