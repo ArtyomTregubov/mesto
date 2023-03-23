@@ -8,33 +8,42 @@ const DOM = {
   popupProfile: document.querySelector('.popup-profile'),
   popupCard: document.querySelector('.popup-card'),
   popupImage: document.querySelector('.popup-image'),
-  add: document.querySelector('.profile__add-button')
+  add: document.querySelector('.profile__add-button'),
 }
+
+const pictureSelector = '.gallery__picture'
+const bigPictureSelector = '.popup-image__picture'
 
 const initialCards = [
   {
     name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+    alt: 'Архыз',
   },
   {
     name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+    alt: 'Челябинская область'
   },
   {
     name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+    alt: 'Иваново'
   },
   {
     name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+    alt: 'Камчатка'
   },
   {
     name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+    alt: 'Холмогорский район'
   },
   {
     name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+    alt: 'Байкал'
   }
 ];
 
@@ -43,20 +52,17 @@ initialCards.map(renderGallery);
 function createNewPicture(item) {
   const galleryTemplate = DOM.galleryElement.content;
   const galleryElement = galleryTemplate.querySelector('.gallery__element').cloneNode(true);
-
-  galleryElement.querySelector('.gallery__picture').src = item.link;
+  const galleryPicture = galleryElement.querySelector(pictureSelector)
+  galleryPicture.src = item.link;
   galleryElement.querySelector('.gallery__title').textContent = item.name;
+  galleryPicture.alt = item.alt;
 
-  galleryElement.querySelector('.gallery__picture').addEventListener('click', showImage)
+  galleryPicture.addEventListener('click', showImage)
   galleryElement.querySelector('.gallery__like').addEventListener('click', likeCard)
   galleryElement.querySelector('.gallery__trash').addEventListener('click', deleteElement)
 
   return galleryElement
 
-}
-
-function setFirstInitialCards(newElement) {
-  if (newElement) return initialCards.unshift(newElement);
 }
 
 function renderGallery(item) {
@@ -72,29 +78,33 @@ function renderGallery(item) {
   }
 
   function deleteElement(e) {
-    DOM.gallery.removeChild(e.target.parentElement);
+    DOM.gallery.removeChild(e.target.closest('.gallery__element'));
   }
 
   function showImage(e) {
-    DOM.popupImage.querySelector('.popup-image__picture').src = e.target.src;
-    DOM.popupImage.querySelector('.popup-image__picture').onload = () => {
+    const picture = DOM.popupImage.querySelector(bigPictureSelector)
+    picture.src = e.target.src;
+    picture.alt = e.target.alt;
+    picture.onload = () => {
       if (e.target.naturalHeight > e.target.naturalWidth) {
         if (window.innerWidth > 635) {
-          DOM.popupImage.querySelector('.popup-image__picture').style.height = '75vh';
+          picture.style.height = '75vh';
         } else {
           const height = String((63 / 568) * window.innerHeight)
-          DOM.popupImage.querySelector('.popup-image__picture').style.height = height +'vh';
+          picture.style.height = height +'vh';
         }
-        DOM.popupImage.querySelector('.popup-image__picture').style.width = '';
+        picture.style.width = '';
       } else {
   
-        DOM.popupImage.querySelector('.popup-image__picture').style.height = '';
-        DOM.popupImage.querySelector('.popup-image__picture').style.width = '75vw';
+        picture.style.height = '';
+        picture.style.width = '75vw';
       }
       DOM.popupImage.querySelector('.popup-image__title').textContent = e.target.parentNode.children[2].children[0].innerText
-      DOM.popupImage.querySelector('.popup-image__close').onclick = (e) => {
-        closePopup(e.target.parentNode)
-      };
+      const closeButton = DOM.popupImage.querySelector('.popup__close')
+      // const closeButton = DOM.popupImage.querySelector('.popup-image__close')
+      closeButton.addEventListener('click', (e) => {
+        closePopup(e.target.closest('.popup-image'))
+      });
       showPopup(DOM.popupImage);
     };
   }
@@ -104,9 +114,10 @@ function renderGallery(item) {
     const formDescription = DOM.popupProfile.querySelector('.popup__input_form_description');
     formName.value = DOM.infoName.textContent;
     formDescription.value = DOM.description.textContent;
-    DOM.popupProfile.querySelector('.popup__close').onclick = (e) => {
-      closePopup(e.target.parentNode.parentNode)
-    };
+    DOM.popupProfile.querySelector('.popup__close').addEventListener('click', (e) => {
+      // closePopup(e.target.parentNode.parentNode)
+      closePopup(e.target.closest('.popup-profile'))
+    });
     showPopup(DOM.popupProfile);
   }
   
@@ -130,7 +141,6 @@ function renderGallery(item) {
         name: formName.value,
         link: formDescription.value
       }
-      setFirstInitialCards(newCard)
       DOM.gallery.insertBefore(createNewPicture(newCard), DOM.gallery.firstChild);
     } 
     closePopup(DOM.popupCard);
@@ -151,9 +161,10 @@ function renderGallery(item) {
     const formDescription = DOM.popupCard.querySelector('.popup__input_form_description');
     formName.value = '';
     formDescription.value = '';
-    DOM.popupCard.querySelector('.popup__close').onclick = (e) => {
-      closePopup(e.target.parentNode.parentNode)
-    };
+    DOM.popupCard.querySelector('.popup__close').addEventListener('click', (e) => {
+      // closePopup(e.target.parentNode.parentNode)
+      closePopup(e.target.closest('.popup-card'))
+    });
     showPopup(DOM.popupCard);
   }
 
@@ -171,28 +182,3 @@ function renderGallery(item) {
   }
   
   addListeners();
-
-  const welcomeMessages = { 
-    russian: 'Добро пожаловать',
-    english: 'Welcome',
-    french: 'Bienvenue',
-    italian: 'Benvenuto',
-    spanish: 'bienvenido',
-    chinese: '歡迎',
-    finnish: 'Tervetuloa'
-  };
-  
-  function countLanguages(obj, propsArr) {
-    // ваш код здесь
-    return propsArr.reduce(
-      (accumulator, currentValue) => {
-        if(currentValue in obj){
-          accumulator += 1
-        }
-        return accumulator
-      }
-        , 0);
-    }
-  
-  console.log(countLanguages(welcomeMessages, ['english', 'french', 'mandarin'])); // 2
-  console.log(countLanguages(welcomeMessages, ['russian', 'czech'])); // 1
