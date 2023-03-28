@@ -139,13 +139,7 @@ function renderGallery(item) {
   }
   
   function likeCard(e) {
-    if (!e.target.style.backgroundImage) {
-      e.target.style.backgroundImage = 'url(./images/heart-black.svg)';
-    } else if (e.target.style.backgroundImage.indexOf('heart-black') !== -1) {
-      e.target.style.backgroundImage = 'url(./images/heart-white.svg)';
-    } else {
-      e.target.style.backgroundImage = 'url(./images/heart-black.svg)';
-    }
+    e.target.classList.toggle('gallery__like_active')
   }
   
   function openAddNewPlacePopup() {
