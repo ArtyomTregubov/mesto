@@ -105,7 +105,8 @@ function renderGallery(item) {
         picture.style.height = '';
         picture.style.width = '75vw';
       }
-      DOM.popupImageTitle.textContent = e.target.parentNode.children[2].children[0].innerText
+      
+      DOM.popupImageTitle.textContent = elem = e.target.alt
       
       showPopup(DOM.popupImage);
     };
@@ -143,8 +144,6 @@ function renderGallery(item) {
   }
   
   function openAddNewPlacePopup() {
-    DOM.formNameCard.value = '';
-    DOM.formDescriptionCard.value = '';
     showPopup(DOM.popupCard);
   }
 
