@@ -105,8 +105,7 @@ function renderGallery(item) {
         picture.style.height = '';
         picture.style.width = '75vw';
       }
-      
-      DOM.popupImageTitle.textContent = elem = e.target.alt
+      DOM.popupImageTitle.textContent = e.target.alt
       
       showPopup(DOM.popupImage);
     };
@@ -137,6 +136,8 @@ function renderGallery(item) {
       DOM.gallery.insertBefore(createNewPicture(newCard), DOM.gallery.firstChild);
     } 
     closePopup(DOM.popupCard);
+    DOM.formNameCard.value = '';
+    DOM.formDescriptionCard.value = '';
   }
   
   function likeCard(e) {
