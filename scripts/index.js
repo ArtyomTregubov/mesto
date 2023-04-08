@@ -19,6 +19,7 @@ DOM.formDescriptionCard = DOM.popupCard.querySelector('.popup__input_form_descri
 DOM.closeButtonImage = DOM.popupImage.querySelector('.popup__close')
 DOM.closeButtonProfile = DOM.popupProfile.querySelector('.popup__close')
 DOM.closeButtonCard = DOM.popupCard.querySelector('.popup__close')
+DOM.saveButtonCard = DOM.popupCard.querySelector('.popup__save-button')
 
 const initialCards = [
   {
@@ -145,7 +146,20 @@ function renderGallery(item) {
   }
   
   function openAddNewPlacePopup() {
+    DOM.saveButtonCard.disabled = true;
     showPopup(DOM.popupCard);
+  }
+
+  function popupCloseByOverlayMouse(e){
+    closePopup(e.target);
+  }
+
+  function popupCloseByOverlayKeyboard(e){
+    if(e.code == "Escape"){
+      closePopup(DOM.popupProfile);
+      closePopup(DOM.popupCard);
+      closePopup(DOM.popupImage);
+    }
   }
 
   
@@ -170,7 +184,12 @@ function renderGallery(item) {
     DOM.closeButtonCard.addEventListener('click', (e) => {
       closePopup(e.target.closest('.popup-card'))
     });
-  
+
+    DOM.popupProfile.addEventListener('click', popupCloseByOverlayMouse)
+    DOM.popupCard.addEventListener('click', popupCloseByOverlayMouse)
+    DOM.popupImage.addEventListener('click', popupCloseByOverlayMouse)
+
+    document.addEventListener('keydown', popupCloseByOverlayKeyboard)
   }
   
   addListeners();

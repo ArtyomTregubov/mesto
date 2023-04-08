@@ -13,6 +13,10 @@
     color: black;
     padding: 0 0 8px 0;
   }
+
+  .popup__input:focus {
+    outline: none;
+  }
   
   .popup__input::placeholder {
     line-height: 1.2;
@@ -46,6 +50,6 @@
     color: black;
   }
   
-  .popup__input:last-child {
+  .popup__input:nth-child(3) {
     margin-top: 30px;
   }
