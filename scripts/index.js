@@ -16,10 +16,12 @@ DOM.formName = DOM.popupProfile.querySelector('.popup__input_form_name');
 DOM.formDescription = DOM.popupProfile.querySelector('.popup__input_form_description');
 DOM.formNameCard = DOM.popupCard.querySelector('.popup__input_form_name');
 DOM.formDescriptionCard = DOM.popupCard.querySelector('.popup__input_form_description');
-DOM.closeButtonImage = DOM.popupImage.querySelector('.popup__close')
-DOM.closeButtonProfile = DOM.popupProfile.querySelector('.popup__close')
-DOM.closeButtonCard = DOM.popupCard.querySelector('.popup__close')
-DOM.saveButtonCard = DOM.popupCard.querySelector('.popup__save-button')
+DOM.closeButtonImage = DOM.popupImage.querySelector('.popup__close');
+DOM.closeButtonProfile = DOM.popupProfile.querySelector('.popup__close');
+DOM.closeButtonCard = DOM.popupCard.querySelector('.popup__close');
+DOM.saveButtonCard = DOM.popupCard.querySelector('.popup__save-button');
+
+const popupOpened = '.popup_opened';
 
 const initialCards = [
   {
@@ -77,11 +79,13 @@ function renderGallery(item) {
 }
 
   function closePopup(popup) {
-    popup.classList.remove('popup_opened');
+    popup.classList.remove(popupOpened.split('.')[1]);
+    document.removeEventListener("keydown", closePopupEsc);
   }
   
   function showPopup(popup) {
-    popup.classList.add('popup_opened');
+    popup.classList.add(popupOpened.split('.')[1]);
+    document.addEventListener("keydown", closePopupEsc);
   }
 
   function deleteElement(e) {
@@ -109,6 +113,7 @@ function renderGallery(item) {
       DOM.popupImageTitle.textContent = e.target.alt
       
       showPopup(DOM.popupImage);
+      
     };
   }
   
@@ -120,22 +125,19 @@ function renderGallery(item) {
   
   function saveInfoProfile(e) {
     e.preventDefault();
-    if (DOM.formName.value && DOM.formDescription.value) {
-      DOM.infoName.textContent = DOM.formName.value;
-      DOM.description.textContent = DOM.formDescription.value;
-    }
+    DOM.infoName.textContent = DOM.formName.value;
+    DOM.description.textContent = DOM.formDescription.value;
     closePopup(DOM.popupProfile);
   }
 
   function saveCard(e) {
     e.preventDefault();
-    if (DOM.formNameCard.value && DOM.formDescriptionCard.value) {
-      const newCard = {
-        name: DOM.formNameCard.value,
-        link: DOM.formDescriptionCard.value
-      }
-      DOM.gallery.insertBefore(createNewPicture(newCard), DOM.gallery.firstChild);
-    } 
+    const newCard = {
+      name: DOM.formNameCard.value,
+      link: DOM.formDescriptionCard.value,
+      alt: DOM.formNameCard.value
+    }
+    DOM.gallery.insertBefore(createNewPicture(newCard), DOM.gallery.firstChild);
     closePopup(DOM.popupCard);
     DOM.formNameCard.value = '';
     DOM.formDescriptionCard.value = '';
@@ -150,15 +152,13 @@ function renderGallery(item) {
     showPopup(DOM.popupCard);
   }
 
-  function popupCloseByOverlayMouse(e){
+  function closePopupByOverlayMouse(e){
     closePopup(e.target);
   }
 
-  function popupCloseByOverlayKeyboard(e){
-    if(e.code == "Escape"){
-      closePopup(DOM.popupProfile);
-      closePopup(DOM.popupCard);
-      closePopup(DOM.popupImage);
+  function closePopupEsc(e){
+    if(e.code === "Escape"){
+      closePopup(document.querySelector(popupOpened));
     }
   }
 
@@ -174,7 +174,7 @@ function renderGallery(item) {
     DOM.add.addEventListener('click', openAddNewPlacePopup);
 
     DOM.closeButtonImage.addEventListener('click', (e) => {
-      closePopup(e.target.closest("." + DOM.popupImage.classList[1]))
+      closePopup(e.target.closest(popupOpened))
     });
 
     DOM.closeButtonProfile.addEventListener('click', (e) => {
@@ -185,11 +185,9 @@ function renderGallery(item) {
       closePopup(e.target.closest('.popup-card'))
     });
 
-    DOM.popupProfile.addEventListener('click', popupCloseByOverlayMouse)
-    DOM.popupCard.addEventListener('click', popupCloseByOverlayMouse)
-    DOM.popupImage.addEventListener('click', popupCloseByOverlayMouse)
-
-    document.addEventListener('keydown', popupCloseByOverlayKeyboard)
+    DOM.popupProfile.addEventListener('click', closePopupByOverlayMouse)
+    DOM.popupCard.addEventListener('click', closePopupByOverlayMouse)
+    DOM.popupImage.addEventListener('click', closePopupByOverlayMouse)
   }
   
   addListeners();
