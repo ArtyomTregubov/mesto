@@ -1,4 +1,6 @@
-class Card {
+import { showPopup } from './utils.js'
+
+export default class Card {
   constructor(data, templateSelector) { 
       this._name = data.name;
       this._link = data.link;
@@ -15,29 +17,6 @@ class Card {
     .cloneNode(true);
 
   return cardElement;
-  }
-
-  _showPopup(popup) {
-    popup.classList.add('.popup_opened'.split('.')[1]);
-    document.addEventListener("keydown", (e) => {
-      this._closePopupEsc(e)
-    });
-    const closeButtonImage = document.querySelector('.popup-image').querySelector('.popup__close')
-    closeButtonImage.addEventListener('click', (e) => {
-      const closest = e.target.closest('.popup_opened')
-      this._closePopup(closest)
-    });
-  }
-
-  _closePopupEsc(e){
-    if(e.code === "Escape"){
-      this._closePopup(document.querySelector('.popup_opened'));
-    }
-  }
-
-  _closePopup(popup) {
-    popup.classList.remove('.popup_opened'.split('.')[1]);
-    document.removeEventListener("keydown", this._closePopupEsc);
   }
 
   _showImage(e) {
@@ -59,8 +38,7 @@ class Card {
         picture.style.width = '75vw';
       }
       document.querySelector('.popup-image').querySelector('.popup-image__title').textContent = e.target.alt 
-      
-      this._showPopup(document.querySelector('.popup-image'));
+      showPopup(document.querySelector('.popup-image'));
     };
   }
 
