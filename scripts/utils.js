@@ -1,8 +1,5 @@
 function showPopup(popup) {
     popup.classList.add('.popup_opened'.split('.')[1]);
-    document.addEventListener("keydown", (e) => {
-      closePopupEsc(e)
-    });
     const closeButtonImage = document.querySelector('.popup-image').querySelector('.popup__close')
     closeButtonImage.addEventListener('click', (e) => {
       const closest = e.target.closest('.popup_opened');
@@ -25,10 +22,12 @@ function showPopup(popup) {
 
   function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    popup.removeEventListener('click', showPopup);
+    popup.removeEventListener('keydown', closePopupEsc);
   }
 
   function closePopupByOverlayMouse(e){
     closePopup(e.target);
   }
 
-export {showPopup, closePopupByOverlayMouse, closePopupEsc};
+export {showPopup, closePopupByOverlayMouse, closePopup, closePopupEsc};

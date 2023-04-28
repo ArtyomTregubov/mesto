@@ -1,12 +1,11 @@
-import { showPopup } from './utils.js'
-
 export default class Card {
-  constructor(data, templateSelector) { 
+  constructor(data, templateSelector, handleCardClick) {
       this._name = data.name;
       this._link = data.link;
       this._alt = data.alt;
       this._templateSelector = templateSelector; 
       this._element = null;
+      this._handleCardClick = handleCardClick
   }
 
   _getTemplate() {
@@ -38,7 +37,7 @@ export default class Card {
         picture.style.width = '75vw';
       }
       document.querySelector('.popup-image').querySelector('.popup-image__title').textContent = e.target.alt 
-      showPopup(document.querySelector('.popup-image'));
+      this._handleCardClick(document.querySelector('.popup-image'))
     };
   }
 

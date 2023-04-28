@@ -1,6 +1,6 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-import { showPopup, closePopupByOverlayMouse, closePopupEsc } from './utils.js';
+import { showPopup, closePopupByOverlayMouse, closePopup, closePopupEsc } from './utils.js';
 
 const DOM = {
   gallery: document.querySelector('.gallery'),
@@ -62,28 +62,22 @@ const initialCards = [
   }
 ];
 
+function handleCardClick(data){
+    showPopup(data)
+    document.addEventListener("keydown", closePopupEsc)
+  }
+
 function renderGallery(data) {
-  const card = new Card(data, '#gallery__element')
+  const card = new Card(data, '#gallery__element', handleCardClick)
   DOM.gallery.append(card.generateCard());
 }
-
-  function closePopup(popup) {
-    const popup_main = popup.querySelector('.popup__main')
-    if (popup_main) {
-      const inputs = popup_main.querySelectorAll('input');
-      inputs.forEach(elem => elem.value = '')
-    }
-    
-    popup.classList.remove(popupOpened.split('.')[1]);
-    document.removeEventListener("keydown", closePopupEsc);
-    
-  }
 
   function openProfileInfoPopup() {
     DOM.formNameProfile.value = DOM.infoName.textContent;
     DOM.formDescriptionProfile.value = DOM.descriptionProfile.textContent;
     formValidatorProfile.resetValidation();
     showPopup(DOM.popupProfile);
+    document.addEventListener("keydown", closePopupEsc)
   }
   
   function saveInfoProfile(e) {
@@ -100,7 +94,7 @@ function renderGallery(data) {
       link: DOM.formDescriptionCard.value,
       alt: DOM.formNameCard.value
     }
-    const card = new Card(newCard, '#gallery__element')
+    const card = new Card(newCard, '#gallery__element', handleCardClick)
     DOM.gallery.prepend(card.generateCard());
     closePopup(DOM.popupCard);
     DOM.formNameCard.value = '';
@@ -108,9 +102,9 @@ function renderGallery(data) {
   }
   
   function openAddNewPlacePopup() {
-    DOM.saveButtonCard.disabled = true;
     formValidatorCard.resetValidation()
     showPopup(DOM.popupCard);
+    document.addEventListener("keydown", closePopupEsc)
   }
 
   function addListeners() {
