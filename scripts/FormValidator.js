@@ -1,5 +1,5 @@
 export default class FormValidator{
-  constructor(conf, formElement) { 
+  constructor(conf, formElement) {
     this._formElement = formElement;
     this._popupInput = conf.popupInput;
     this._popupSaveButton = conf.popupSaveButton;

@@ -19,7 +19,8 @@ export default class Card {
   }
 
   _showImage(e) {
-    const picture = document.querySelector('.popup-image').querySelector('.popup-image__picture')
+    const popupImage = document.querySelector('.popup-image')
+    const picture = popupImage.querySelector('.popup-image__picture')
     picture.src = e.target.src;
     picture.alt = e.target.alt;
     picture.onload = () => {
@@ -36,8 +37,8 @@ export default class Card {
         picture.style.height = '';
         picture.style.width = '75vw';
       }
-      document.querySelector('.popup-image').querySelector('.popup-image__title').textContent = e.target.alt 
-      this._handleCardClick(document.querySelector('.popup-image'))
+      popupImage.querySelector('.popup-image__title').textContent = e.target.alt
+      this._handleCardClick(popupImage);
     };
   }
 

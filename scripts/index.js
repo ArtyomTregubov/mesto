@@ -1,6 +1,6 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
-import { showPopup, closePopupByOverlayMouse, closePopup, closePopupEsc } from './utils.js';
+import { showPopup, closePopup } from './utils.js';
 
 const DOM = {
   gallery: document.querySelector('.gallery'),
@@ -9,6 +9,7 @@ const DOM = {
   descriptionProfile: document.querySelector('.profile__info-description'),
   popupProfile: document.querySelector('.popup-profile'),
   popupCard: document.querySelector('.popup-card'),
+  popupImage: document.querySelector('.popup-image'),
   addNewCard: document.querySelector('.profile__add-button'),
 }
 DOM.formNameProfile = DOM.popupProfile.querySelector('.popup__input_form_name');
@@ -18,8 +19,6 @@ DOM.formDescriptionCard = DOM.popupCard.querySelector('.popup__input_form_descri
 DOM.closeButtonProfile = DOM.popupProfile.querySelector('.popup__close');
 DOM.closeButtonCard = DOM.popupCard.querySelector('.popup__close');
 DOM.saveButtonCard = DOM.popupCard.querySelector('.popup__save-button');
-
-const popupOpened = '.popup_opened';
 
 const CONF = {
   popupMain: '.popup__main',
@@ -62,9 +61,8 @@ const initialCards = [
   }
 ];
 
-function handleCardClick(data){
-    showPopup(data)
-    document.addEventListener("keydown", closePopupEsc)
+function handleCardClick(popupImage){
+    showPopup(popupImage);
   }
 
 function renderGallery(data) {
@@ -77,14 +75,13 @@ function renderGallery(data) {
     DOM.formDescriptionProfile.value = DOM.descriptionProfile.textContent;
     formValidatorProfile.resetValidation();
     showPopup(DOM.popupProfile);
-    document.addEventListener("keydown", closePopupEsc)
   }
   
   function saveInfoProfile(e) {
     e.preventDefault();
     DOM.infoName.textContent = DOM.formNameProfile.value;
     DOM.descriptionProfile.textContent = DOM.formDescriptionProfile.value;
-    closePopup(DOM.popupProfile);
+    closePopup(e);
   }
 
   function saveCard(e) {
@@ -96,7 +93,7 @@ function renderGallery(data) {
     }
     const card = new Card(newCard, '#gallery__element', handleCardClick)
     DOM.gallery.prepend(card.generateCard());
-    closePopup(DOM.popupCard);
+    closePopup(e);
     DOM.formNameCard.value = '';
     DOM.formDescriptionCard.value = '';
   }
@@ -104,7 +101,6 @@ function renderGallery(data) {
   function openAddNewPlacePopup() {
     formValidatorCard.resetValidation()
     showPopup(DOM.popupCard);
-    document.addEventListener("keydown", closePopupEsc)
   }
 
   function addListeners() {
@@ -117,17 +113,21 @@ function renderGallery(data) {
 
     DOM.addNewCard.addEventListener('click', openAddNewPlacePopup);
 
-    DOM.closeButtonCard.addEventListener('click', (e) => {
-      closePopup(e.target.closest(popupOpened))
-    });
+    DOM.popupProfile.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+        closePopup(DOM.popupProfile);
+      }});
 
-    DOM.closeButtonProfile.addEventListener('click', (e) => {
-      closePopup(e.target.closest('.popup-profile'))
-    });
+    DOM.popupCard.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+        closePopup(DOM.popupProfile);
+      }});
 
-    DOM.popupProfile.addEventListener('click', closePopupByOverlayMouse)
-    DOM.popupCard.addEventListener('click', closePopupByOverlayMouse)
-    
+    DOM.popupImage.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+        closePopup(DOM.popupImage);
+      }});
+
   }
 
   initialCards.map(renderGallery);

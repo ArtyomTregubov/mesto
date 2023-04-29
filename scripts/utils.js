@@ -1,33 +1,21 @@
 function showPopup(popup) {
-    popup.classList.add('.popup_opened'.split('.')[1]);
-    const closeButtonImage = document.querySelector('.popup-image').querySelector('.popup__close')
-    closeButtonImage.addEventListener('click', (e) => {
-      const closest = e.target.closest('.popup_opened');
-      if (closest)
-        closePopup(closest)
-    });
-    document.querySelector('.popup-image').addEventListener('click', (e) => {
-      closePopupByOverlayMouse(e)
-    });
+    popup.classList.add('popup_opened');
+    document.addEventListener("keydown", closePopupEsc);
   }
 
   function closePopupEsc(e){
     if(e.code === "Escape"){
-      const popup_opened = document.querySelector('.popup_opened');
-      if (popup_opened) {
-        closePopup(popup_opened);
-      }
+      closePopup(e);
     }
   }
 
-  function closePopup(popup) {
-    popup.classList.remove('popup_opened');
-    popup.removeEventListener('click', showPopup);
-    popup.removeEventListener('keydown', closePopupEsc);
+  function closePopup(e) {
+    const popup = document.querySelector('.popup_opened');
+    if (popup){
+        popup.classList.remove('popup_opened');
+        popup.removeEventListener('click', showPopup);
+        popup.removeEventListener('keydown', closePopupEsc);
+    }
   }
 
-  function closePopupByOverlayMouse(e){
-    closePopup(e.target);
-  }
-
-export {showPopup, closePopupByOverlayMouse, closePopup, closePopupEsc};
+export {showPopup, closePopup};
