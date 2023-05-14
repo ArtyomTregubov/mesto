@@ -1,27 +1,40 @@
 import Popup from "./Popup";
-import {popupInputDescription, popupInputName, popupMain} from "../utils/constants";
+import {popupMain} from "../utils/constants";
 
 export default class PopupWithForm extends Popup {
     constructor(selector, submitForm) {
         super(selector);
-        this._submitForm = submitForm
+        this._submitForm = submitForm;
+        this._inputList = this._popup.querySelectorAll('.popup__input');
     }
 
     _getInputValues() {
-        let elem = this._popup.querySelector(popupInputName);
-        const name = this._popup.querySelector(popupInputName).value;
-        const description = this._popup.querySelector(popupInputDescription).value;
-        return { name, description }
+        this._inputList = this._popup.querySelectorAll('.popup__input');
+        this._formValues = {};
+        this._inputList.forEach(input => {
+            this._formValues[input.name] = input.value;
+        });
+
+        return this._formValues;
     }
 
     setEventListeners() {
+        this._popupForm = this._popup.querySelector(popupMain);
         super.setEventListeners()
-        this._popup.addEventListener('submit', this._submitForm);
+        this._popup.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+            this._submitForm(this._getInputValues());
+        });
     }
 
     close() {
-        this._popup.removeEventListener('submit', this._submitForm);
         super.close()
-        this._popup.querySelector(popupMain).reset()
+        this._popupForm.reset()
+    }
+
+    setInputValues(data) {
+        this._inputList.forEach((input) => {
+            input.value = data[input.name];
+        });
     }
 }

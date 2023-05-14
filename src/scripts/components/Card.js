@@ -26,29 +26,30 @@ export default class Card {
             .cloneNode(true);
     }
 
-    _likeCard(e) {
+    _toggleLike(e) {
         e.target.classList.toggle(galleryLikeActive)
     }
 
     _deleteElement(e) {
-        this._element.removeEventListener('click', this._handleCardClick);
-        this._element.removeEventListener('click', this._likeCard);
-        this._element.removeEventListener('click', this._deleteElement);
         galleryDOM.removeChild(e.target.closest(galleryElement));
     }
 
     _setEventListeners() {
-        this._element.querySelector(galleryPicture).addEventListener('click', this._handleCardClick)
-        this._element.querySelector(galleryLike).addEventListener('click', this._likeCard)
-        this._element.querySelector(galleryTrash).addEventListener('click', (e) => this._deleteElement(e))
+        this._cardImage.addEventListener('click', this._handleCardClick)
+        this._cardLike.addEventListener('click', this._toggleLike)
+        this._cardTrash.addEventListener('click', (e) => this._deleteElement(e))
     }
 
     generateCard() {
         this._element = this._getTemplate();
+        this._cardImage = this._element.querySelector(galleryPicture);
+        this._cardTitle =  this._element.querySelector(galleryTitle);
+        this._cardTrash = this._element.querySelector(galleryTrash);
+        this._cardLike = this._element.querySelector(galleryLike);
 
-        this._element.querySelector(galleryPicture).src = this._link;
-        this._element.querySelector(galleryPicture).alt = this._alt;
-        this._element.querySelector(galleryTitle).textContent = this._name;
+        this._cardImage.src = this._link;
+        this._cardImage.alt = this._alt;
+        this._cardTitle.textContent = this._name;
 
         this._setEventListeners();
 

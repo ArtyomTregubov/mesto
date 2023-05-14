@@ -54,8 +54,6 @@ export const popupSaveButton = '.popup__save-button';
 export const popupInput = '.popup__input';
 export const popupInputErrorIsActive = 'popup__input-error_is-active';
 export const popupInputError = 'popup__input_error';
-export const popupInputName = '.popup__input_form_name';
-export const popupInputDescription = '.popup__input_form_description';
 
 export const profileName = '.profile__info-name';
 export const profileDescription = '.profile__info-description';

@@ -3,18 +3,18 @@ import {popup, popupClose, popupOpened} from '../utils/constants';
 export default class Popup {
   constructor(selector) {
       this._popup = document.querySelector(selector);
+      this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   open(callback=null) {
     if (callback) callback();
     this._popup.classList.add(popupOpened);
-    this.setEventListeners()
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   close() {
     this._popup.classList.remove(popupOpened);
-    this._popup.removeEventListener('click', this.open);
-    this._popup.removeEventListener('keydown', this._handleEscClose);
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 
   _handleEscClose(e) {
