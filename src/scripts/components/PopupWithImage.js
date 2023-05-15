@@ -26,7 +26,6 @@ export default class PopupWithImage extends Popup {
       }
       this._pictureTitle.textContent = e.target.alt
       super.open();
-      super.setEventListeners();
     };
   }
 }

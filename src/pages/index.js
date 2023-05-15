@@ -62,6 +62,7 @@ const userInfo = new UserInfo(profileName, profileDescription)
 function addListeners() {
     popupProfile.setEventListeners();
     popupAddNewCard.setEventListeners();
+    popupWithImage.setEventListeners();
     editButtonDOM.addEventListener('click', () => popupProfile.open(() => openProfile()));
     addCardButtonDOM.addEventListener('click', () => popupAddNewCard.open(() => openAddNewCard()));
     formValidatorProfile.setEventListeners();
