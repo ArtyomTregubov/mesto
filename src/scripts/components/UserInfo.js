@@ -5,11 +5,13 @@ export default class UserInfo {
     }
 
     getUserInfo() {
-        return {"form-name": this._name.textContent, "form-description": this._description.textContent}
+        return {"name": this._name.textContent, "about": this._description.textContent}
     }
 
-    setUserInfo({"form-name": name, "form-description": description}) {
+    setUserInfo({"name": name, "about": description}) {
         this._name.textContent = name;
         this._description.textContent = description;
     }
+
+
 }

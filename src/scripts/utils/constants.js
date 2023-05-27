@@ -1,37 +1,3 @@
-export const items = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-        alt: 'Архыз',
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-        alt: 'Челябинская область'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-        alt: 'Иваново'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-        alt: 'Камчатка'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-        alt: 'Холмогорский район'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-        alt: 'Байкал'
-    }
-];
-
-
 export const gallery = '.gallery';
 export const galleryLikeActive = 'gallery__like_active';
 export const galleryElement = '.gallery__element';
@@ -40,13 +6,17 @@ export const galleryLike = '.gallery__like';
 export const galleryTrash = '.gallery__trash';
 export const galleryTitle = '.gallery__title';
 export const galleryPicture = '.gallery__picture';
+export const galleryNumber = '.gallery__number';
+export const galleryLikeCount = '.gallery__like-count';
 
 export const popup = 'popup';
 export const popupProfileCls = '.popup-profile';
 export const popupCardCls = '.popup-card';
+export const popupAvatarCls = '.popup-avatar';
+export const popupDeleteCardCls = '.popup-delete';
 export const popupOpened = 'popup_opened';
 export const popupClose = 'popup__close';
-export const popupImage = '.popup-image';
+export const popupImageCls = '.popup-image';
 export const popupImageTitle = '.popup-image__title';
 export const popupImagePicture = '.popup-image__picture';
 export const popupMain ='.popup__main';
@@ -59,12 +29,19 @@ export const profileName = '.profile__info-name';
 export const profileDescription = '.profile__info-description';
 export const profileButtonEdit = '.profile__info-button-edit';
 export const profileAddCardButton = '.profile__add-button';
+const profileAvatar = '.profile__avatar';
+
+const penCls = '.pen-overlay'
 
 export const galleryDOM = document.querySelector(gallery);
 export const editButtonDOM = document.querySelector(profileButtonEdit);
 export const addCardButtonDOM = document.querySelector(profileAddCardButton);
 export const popupProfileDOM = document.querySelector(popupProfileCls);
 export const popupAddNewCardDOM = document.querySelector(popupCardCls);
+export const popupChangeAvatarDOM = document.querySelector(popupAvatarCls);
+export const avatarDOM = document.querySelector(profileAvatar);
+export const penDOM = document.querySelector(penCls);
+
 
 export const CONF_VALIDATOR = {
   popupMain,
@@ -73,3 +50,16 @@ export const CONF_VALIDATOR = {
   popupInputErrorIsActive,
   popupInputError
 };
+
+const TOKEN = '85f45188-40df-476e-9439-a079efcb1c8d';
+export const HEADERS = {
+    headers: {
+    authorization: TOKEN,
+    'Content-Type': 'application/json'
+    }
+};
+const cohortId = 'cohort-66';
+export const cardsURL = `https://mesto.nomoreparties.co/v1/${cohortId}/cards`;
+export const userURL = `https://nomoreparties.co/v1/${cohortId}/users/me`;
+export const changeAvatarUrl = `${userURL}/avatar`
+export const myUserId = "9ac69d79eceb5617e13a41e7";

@@ -24,6 +24,7 @@ export default class FormValidator{
   }; 
 
   resetValidation(){
+    this._buttonElement.innerHTML = 'Сохранить';
     this._inputList.forEach((inputElement) => {
         this._hideInputError(this._conf, this._formElement, inputElement);
         if (this._hasInvalidInput(this._inputList)) {

@@ -1,7 +1,7 @@
 import Popup from "./Popup";
 import {popupMain, popupSaveButton} from "../utils/constants";
 
-export default class PopupWithForm extends Popup {
+export default class PopupWithAvatar extends Popup {
     constructor(selector, submitForm) {
         super(selector);
         this._submitForm = submitForm;
@@ -30,11 +30,5 @@ export default class PopupWithForm extends Popup {
     close() {
         super.close()
         this._popupForm.reset()
-    }
-
-    setInputValues(data) {
-        this._inputList.forEach((input) => {
-            input.value = data[input.name];
-        });
     }
 }

@@ -18,7 +18,11 @@
 
         <main>
             <section class="profile">
-                <img src="<%=require('./images/avatar.jpg')%>" alt="аватар" class="profile__avatar" />
+                <div class="pen-overlay">
+                    <div class="pen"></div>
+                    <img alt="аватар" class="profile__avatar" />
+                </div>
+                
                 <div class="profile__info">
                     <h1 class="profile__info-name">Жак-Ив Кусто</h1>
                     <p class="profile__info-description">Исследователь океана</p>
@@ -35,7 +39,10 @@
                         <img class="gallery__picture" src="#">
                         <div class="gallery__info">
                             <h2 class="gallery__title"></h2>
-                            <button class="gallery__like" type="button"></button>
+                            <div class="gallery__number">
+                                <button class="gallery__like" type="button"></button>
+                                <span class="gallery__like-count">6</span>
+                            </div>
                         </div>
                     </article>
                 </template>
@@ -54,10 +61,10 @@
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <form action="#" name="add-form" class="popup__main" novalidate>
                     <fieldset class="popup__info">
-                        <input type="text" name="form-name" class="popup__input popup__input_form_name"
+                        <input type="text" name="name" class="popup__input popup__input_form_name"
                             placeholder="Жак-Ив Кусто" required value minlength="2" maxlength="40" id="name"/>
                         <span class="popup__input-error" id="name-error"></span>
-                        <input type="text" name="form-description" class="popup__input popup__input_form_description"
+                        <input type="text" name="about" class="popup__input popup__input_form_description"
                             placeholder="Исследователь океана" required value minlength="2" maxlength="200" id="description"/>
                          <span class="popup__input-error" id="description-error"></span>
                     </fieldset>
@@ -75,12 +82,43 @@
                 <h2 class="popup__title">Новое место</h2>
                 <form action="#" name="add-form" class="popup__main" novalidate>
                     <fieldset class="popup__info">
-                        <input type="text" name="form-name" class="popup__input popup__input_form_name"
+                        <input type="text" name="name" class="popup__input popup__input_form_name"
                             placeholder="Название" required value minlength="2" maxlength="30" id="image-name"/>
                         <span class="popup__input-error" id="image-name-error"></span>
-                        <input type="url" name="form-description" class="popup__input popup__input_form_description"
+                        <input type="url" name="about" class="popup__input popup__input_form_description"
                             placeholder="Ссылка на картинку" required id="link"/>
                         <span class="popup__input-error" id="link-error"></span>
+                    </fieldset>
+                    <button class="popup__save-button" type="submit">
+                        Сохранить
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="popup popup-delete">
+
+            <div class="popup__overlay">
+                <button class="popup__close" type="button"></button>
+                <h2 class="popup__title popup__delete-title">Вы уверены?</h2>
+                <form action="#" name="add-form" class="popup__main" novalidate>
+                    <button class="popup__save-button popup__delete-button" type="submit">
+                        Да
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="popup popup-avatar">
+
+            <div class="popup__overlay">
+                <button class="popup__close" type="button"></button>
+                <h2 class="popup__title">Обновить аватар</h2>
+                <form action="#" name="add-form" class="popup__main" novalidate>
+                    <fieldset class="popup__info">
+                        <input type="url" name="avatar" class="popup__input popup__input_form_description"
+                            placeholder="Ссылка на картинку" required id="url"/>
+                        <span class="popup__input-error" id="url-error"></span>
                     </fieldset>
                     <button class="popup__save-button" type="submit">
                         Сохранить
