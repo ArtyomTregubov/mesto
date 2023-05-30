@@ -3,16 +3,16 @@ import {
     cardsURL,
     userURL,
     changeAvatarUrl
-} from './constants';
+} from '../utils/constants';
 
 export default class Api {
   constructor() {
   }
 
   static async _send(url, payload) {
-    const res = await fetch(url, { ...payload, ...HEADERS});
-    if (res.ok) return await res.json()
-    throw new Error(`Ошибка ${payload.method} url=${url} status=${res.status}`);
+      const res = await fetch(url, { ...payload, ...HEADERS});
+      if (res.ok) return await res.json()
+      throw new Error(`Ошибка ${payload.method} url=${url} status=${res.status}`);
   }
 
   static async _get(url) {

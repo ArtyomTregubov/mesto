@@ -1,22 +1,23 @@
 import './index.css';
 import {
     addCardButtonDOM,
+    avatarDOM,
     CONF_VALIDATOR,
     editButtonDOM,
     gallery,
     galleryElementId,
+    galleryLikeActive,
+    penDOM,
     popupAddNewCardDOM,
-    popupChangeAvatarDOM,
+    popupAvatarCls,
     popupCardCls,
+    popupChangeAvatarDOM,
+    popupDeleteCardCls,
     popupImageCls,
     popupProfileCls,
     popupProfileDOM,
     profileDescription,
     profileName,
-    avatarDOM,
-    popupAvatarCls,
-    penDOM,
-    popupDeleteCardCls, myUserId,
 } from '../scripts/utils/constants';
 import Card from "../scripts/components/Card";
 import Section from "../scripts/components/Section";
@@ -24,14 +25,19 @@ import PopupWithImage from "../scripts/components/PopupWithImage";
 import PopupWithForm from "../scripts/components/PopupWithForm";
 import PopupWitAvatar from "../scripts/components/PopupWithAvatar";
 import PopupWithDelete from "../scripts/components/PopupWithDelete";
-import FormValidator from "../scripts/utils/FormValidator";
+import FormValidator from "../scripts/components/FormValidator";
 import UserInfo from "../scripts/components/UserInfo";
-import Api from "../scripts/utils/Api";
-
+import Api from "../scripts/components/Api";
 
 function createCard(item) {
-    const card = new Card(item, galleryElementId, (e) => popupWithImage.open(e), popupDeleteCard);
+    const card = new Card(item, galleryElementId, (e) => popupWithImage.open(e), popupDeleteCard, handleLike);
     return card.generateCard();
+}
+
+async function handleLike(e) {
+    return e.target.classList.contains(galleryLikeActive)
+        ? await Api.deleteLike(this._id)
+        : await Api.addLike(this._id)
 }
 
 function renderer(item) {
@@ -40,26 +46,42 @@ function renderer(item) {
 }
 
 async function submitChangeUserInfo(data) {
-    await Api.updateUserInfo(data)
-    userInfo.setUserInfo(data);
+    try {
+        await Api.updateUserInfo(data)
+        userInfo.setUserInfo(data);
+    } catch (err){
+        console.log(err)
+    }
     popupProfile.close();
 }
 
 async function submitAddNewCard(data) {
-    const payload = {name: data["name"], link: data["about"], alt: data["name"]}
-    const req = await Api.addNewCard({ name: payload.name, link: payload.link })
-    renderer(req);
+    try {
+        const payload = {name: data["name"], link: data["about"], alt: data["name"]}
+        const req = await Api.addNewCard({ name: payload.name, link: payload.link })
+        renderer(req);
+    } catch (err){
+        console.log(err)
+    }
     popupAddNewCard.close();
 }
 
 async function submitChangeAvatar(data) {
-    await Api.changeAvatar(data);
-    setAvatar(data.avatar);
+    try {
+        await Api.changeAvatar(data);
+        setAvatar(data.avatar);
+    } catch (err){
+        console.log(err)
+    }
     popupChangeAvatar.close();
 }
 
 async function submitDeleteCard(data) {
-    await Api.deleteCard(data)
+    try {
+        await Api.deleteCard(data)
+    } catch (err){
+        console.log(err)
+    }
     popupDeleteCard.close();
 }
 
@@ -82,9 +104,13 @@ function setAvatar(avatar) {
 }
 
 async function setUserInfo() {
-    const { name, about, avatar } = await Api.getUserInfo();
-    setAvatar(avatar);
-    userInfo.setUserInfo({"name": name, "about": about});
+    try {
+        const { name, about, avatar } = await Api.getUserInfo();
+        setAvatar(avatar);
+        userInfo.setUserInfo({"name": name, "about": about});
+    } catch (err){
+        console.log(err)
+    }
 }
 
 const popupDeleteCard = new PopupWithDelete(popupDeleteCardCls, submitDeleteCard);
@@ -118,6 +144,5 @@ function addListeners() {
 }
 
 cardList.renderItems();
-addListeners();
 setUserInfo();
-
+addListeners();

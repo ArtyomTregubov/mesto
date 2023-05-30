@@ -17,11 +17,15 @@ export default class PopupWithForm extends Popup {
         return this._formValues;
     }
 
+    renderLoading() {
+        this._popup.querySelector(popupSaveButton).innerHTML = 'Сохранение...';
+    }
+
     setEventListeners() {
         this._popupForm = this._popup.querySelector(popupMain);
         super.setEventListeners()
         this._popup.addEventListener('submit', (evt) => {
-            this._popup.querySelector(popupSaveButton).innerHTML = 'Сохранение...';
+            this.renderLoading();
             evt.preventDefault();
             this._submitForm(this._getInputValues());
         });

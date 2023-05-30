@@ -2,27 +2,29 @@ import {
     galleryDOM,
     galleryElement,
     galleryLike,
-    galleryLikeActive, galleryLikeCount,
+    galleryLikeActive,
+    galleryLikeCount,
     galleryNumber,
     galleryPicture,
     galleryTitle,
     galleryTrash,
     myUserId
 } from '../utils/constants';
-import Api from "../../scripts/utils/Api";
 
 export default class Card {
-    constructor(data, templateSelector, handleCardClick, handleOpenDeletePopup) {
-        this._id = data._id
-        this._owner_id = data.owner._id;
+    constructor(data, templateSelector, handleCardClick, handleOpenDeletePopup, handleLike) {
+        this._id = data._id;
+        this._ownerId = data.owner._id;
+        this._isCardLiked = this._isCardLiked(data);
         this._name = data.name;
         this._link = data.link;
         this._alt = data.name;
-        this._like_count = data.likes.length;
+        this._likeCount = data.likes.length;
         this._templateSelector = templateSelector;
         this._element = null;
         this._handleCardClick = handleCardClick;
         this._handleOpenDeletePopup = handleOpenDeletePopup;
+        this._handleLike = handleLike;
         this._cardTrash = null;
     }
 
@@ -34,10 +36,17 @@ export default class Card {
             .cloneNode(true);
     }
 
+    _isCardLiked(card) {
+        const likes = card.likes;
+        for (let i = 0; i < likes.length; i++) {
+            if (likes[i]._id === myUserId)
+                return true
+        }
+        return false
+    }
+
     async _toggleLike(e) {
-        let req = e.target.classList.contains(galleryLikeActive)
-                ? await Api.deleteLike(this._id)
-                : await Api.addLike(this._id);
+        const req = await this._handleLike(e);
         this._cardLikeCount.innerHTML = req.likes.length;
         e.target.classList.toggle(galleryLikeActive);
     }
@@ -51,27 +60,36 @@ export default class Card {
         this._cardLike.addEventListener('click', (e) => this._toggleLike(e))
         if (this._cardTrash)
             this._cardTrash.addEventListener('click', (e) => {
-                this._handleOpenDeletePopup.delete_card_id = this._id;
-                this._handleOpenDeletePopup.delete_callback = () => this._deleteElement(e)
+                this._handleOpenDeletePopup.deleteCardId = this._id;
+                this._handleOpenDeletePopup.deleteCallback = () => this._deleteElement(e)
                 this._handleOpenDeletePopup.open()
             })
     }
 
     _generateTrash() {
-        if (this._owner_id === myUserId)
+        if (this._ownerId === myUserId)
             this._cardTrash = this._element.querySelector(galleryTrash);
         else {
             this._element.removeChild(this._element.querySelector(galleryTrash))
         }
     }
 
+    _setLike() {
+        this._cardLike = this._element.querySelector(galleryLike);
+        if (this._isCardLiked) {
+            this._cardLike.classList.add(galleryLikeActive);
+            return
+        }
+        this._cardLike.classList.remove(galleryLikeActive);
+    }
+
     generateCard() {
         this._element = this._getTemplate();
         this._cardImage = this._element.querySelector(galleryPicture);
         this._cardTitle =  this._element.querySelector(galleryTitle);
-        this._cardLike = this._element.querySelector(galleryLike);
+        this._setLike()
         this._cardLikeCount = this._cardLike.closest(galleryNumber).querySelector(galleryLikeCount);
-        this._cardLikeCount.innerHTML = this._like_count;
+        this._cardLikeCount.innerHTML = this._likeCount;
         this._generateTrash()
 
         this._cardImage.src = this._link;

@@ -38,12 +38,7 @@ export default class FormValidator{
   
   _hasInvalidInput(inputList) {
     return inputList.some((item) => {
-      if (item.validity.valid) {
-        return false;
-      }
-      else {
-        return true;
-      }
+      return !item.validity.valid;
     })
 }
 

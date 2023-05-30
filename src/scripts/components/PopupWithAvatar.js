@@ -1,7 +1,7 @@
-import Popup from "./Popup";
+import PopupWithForm from "./PopupWithForm";
 import {popupMain, popupSaveButton} from "../utils/constants";
 
-export default class PopupWithAvatar extends Popup {
+export default class PopupWithAvatar extends PopupWithForm {
     constructor(selector, submitForm) {
         super(selector);
         this._submitForm = submitForm;
@@ -21,9 +21,10 @@ export default class PopupWithAvatar extends Popup {
         this._popupForm = this._popup.querySelector(popupMain);
         super.setEventListeners()
         this._popup.addEventListener('submit', (evt) => {
-            this._popup.querySelector(popupSaveButton).innerHTML = 'Сохранение...';
+            this.renderLoading();
             evt.preventDefault();
             this._submitForm(this._getInputValues());
+
         });
     }
 

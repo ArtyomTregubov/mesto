@@ -42,7 +42,6 @@ export const popupChangeAvatarDOM = document.querySelector(popupAvatarCls);
 export const avatarDOM = document.querySelector(profileAvatar);
 export const penDOM = document.querySelector(penCls);
 
-
 export const CONF_VALIDATOR = {
   popupMain,
   popupSaveButton,
@@ -63,3 +62,7 @@ export const cardsURL = `https://mesto.nomoreparties.co/v1/${cohortId}/cards`;
 export const userURL = `https://nomoreparties.co/v1/${cohortId}/users/me`;
 export const changeAvatarUrl = `${userURL}/avatar`
 export const myUserId = "9ac69d79eceb5617e13a41e7";
+
+export const minWidth = 635;
+export const proportion = 63;
+export const minHeight = 568;
