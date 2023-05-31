@@ -1,81 +1,59 @@
-import {
-    HEADERS,
-    cardsURL,
-    userURL,
-    changeAvatarUrl
-} from '../utils/constants';
-
 export default class Api {
-  constructor() {
+  constructor(headers, cardsURL, userURL, changeAvatarUrl) {
+    this.headers = headers;
+    this.cardsURL = cardsURL;
+    this.userURL = userURL;
+    this.changeAvatarUrl = changeAvatarUrl;
   }
 
-  static async _send(url, payload) {
-      const res = await fetch(url, { ...payload, ...HEADERS});
+  async _send(url, payload) {
+      const res = await fetch(url, { ...payload, ...this.headers});
       if (res.ok) return await res.json()
       throw new Error(`Ошибка ${payload.method} url=${url} status=${res.status}`);
   }
 
-  static async _get(url) {
-    const payload = { method: 'GET' }
-    return await Api._send(url, payload)
+  async getInitialCards() {
+    return await this._send(this.cardsURL, { method: 'GET' })
   }
 
-  static async _post(url, body) {
-    const payload = { method: 'POST', body: body  }
-    return await Api._send(url, payload)
+  async getUserInfo() {
+    return await this._send(this.userURL, { method: 'GET' })
   }
 
-  static async _patch(url, body) {
+  async updateUserInfo(data) {
+    const body = JSON.stringify({ ...data })
     const payload = { method: 'PATCH', body: body  }
-    return await Api._send(url, payload)
+    return await this._send(this.userURL, payload)
   }
 
-  static async _put(url) {
-    const payload = { method: 'PUT'}
-    return await Api._send(url, payload)
+  async addNewCard(data) {
+    const body = JSON.stringify({ ...data })
+    const payload = { method: 'POST', body: body  }
+    return await this._send(this.cardsURL, payload)
   }
 
-  static async _delete(url) {
+  async changeAvatar(data) {
+    const body = JSON.stringify({ ...data })
+    const payload = { method: 'PATCH', body: body  }
+    return await this._send(this.changeAvatarUrl, payload)
+  }
+
+  async deleteCard(cardId) {
+    const url = `${this.cardsURL}/${cardId}`
     const payload = { method: 'DELETE' }
-    return await Api._send(url, payload)
+    return await this._send(url, payload)
   }
 
-  static async getInitialCards() {
-    return await Api._get(cardsURL);
+  async addLike(cardId) {
+    const url = `${this.cardsURL}/${cardId}/likes`
+    const payload = { method: 'PUT'}
+    return await this._send(url, payload)
   }
 
-  static async getUserInfo() {
-    return await Api._get(userURL);
-  }
-
-  static async updateUserInfo(data) {
-    const body = JSON.stringify({ ...data })
-    return await Api._patch(userURL, body);
-  }
-
-  static async addNewCard(data) {
-    const body = JSON.stringify({ ...data })
-    return await Api._post(cardsURL, body);
-  }
-
-  static async changeAvatar(data) {
-    const body = JSON.stringify({ ...data })
-    return await Api._patch(changeAvatarUrl, body);
-  }
-
-  static async deleteCard(cardId) {
-    const url = `${cardsURL}/${cardId}`
-    return await Api._delete(url);
-  }
-
-  static async addLike(cardId) {
-    const url = `${cardsURL}/${cardId}/likes`
-    return await Api._put(url);
-  }
-
-  static async deleteLike(cardId) {
-    const url = `${cardsURL}/${cardId}/likes`
-    return await Api._delete(url);
+  async deleteLike(cardId) {
+    const url = `${this.cardsURL}/${cardId}/likes`
+    const payload = { method: 'DELETE' }
+    return await this._send(url, payload)
   }
 
 }

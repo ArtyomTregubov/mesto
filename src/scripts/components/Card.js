@@ -8,13 +8,13 @@ import {
     galleryPicture,
     galleryTitle,
     galleryTrash,
-    myUserId
 } from '../utils/constants';
 
 export default class Card {
-    constructor(data, templateSelector, handleCardClick, handleOpenDeletePopup, handleLike) {
+    constructor(data, templateSelector, handleCardClick, handleOpenDeletePopup, handleLike, userId) {
         this._id = data._id;
         this._ownerId = data.owner._id;
+        this._userId = userId;
         this._isCardLiked = this._isCardLiked(data);
         this._name = data.name;
         this._link = data.link;
@@ -39,7 +39,7 @@ export default class Card {
     _isCardLiked(card) {
         const likes = card.likes;
         for (let i = 0; i < likes.length; i++) {
-            if (likes[i]._id === myUserId)
+            if (likes[i]._id === this._userId)
                 return true
         }
         return false
@@ -67,7 +67,7 @@ export default class Card {
     }
 
     _generateTrash() {
-        if (this._ownerId === myUserId)
+        if (this._ownerId === this._userId)
             this._cardTrash = this._element.querySelector(galleryTrash);
         else {
             this._element.removeChild(this._element.querySelector(galleryTrash))

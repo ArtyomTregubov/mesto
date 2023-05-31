@@ -61,7 +61,6 @@ const cohortId = 'cohort-66';
 export const cardsURL = `https://mesto.nomoreparties.co/v1/${cohortId}/cards`;
 export const userURL = `https://nomoreparties.co/v1/${cohortId}/users/me`;
 export const changeAvatarUrl = `${userURL}/avatar`
-export const myUserId = "9ac69d79eceb5617e13a41e7";
 
 export const minWidth = 635;
 export const proportion = 63;
